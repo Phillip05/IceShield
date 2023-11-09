@@ -1,6 +1,7 @@
 
 package com.company.iceshield;
 
+import com.company.iceshield.paneles.jMain;
 import java.awt.Color;
 
 public class jLogin extends javax.swing.JFrame {
@@ -24,6 +25,10 @@ public class jLogin extends javax.swing.JFrame {
     private void initComponents() {
 
         bg = new javax.swing.JPanel();
+        btn_login = new com.company.iceshield.others.JPanelRound();
+        txt_login = new javax.swing.JLabel();
+        input_password = new com.company.iceshield.others.MyTextField();
+        input_username = new com.company.iceshield.others.MyTextField();
         btn_mini = new javax.swing.JPanel();
         label_mini = new javax.swing.JLabel();
         btn_exit = new javax.swing.JPanel();
@@ -39,6 +44,62 @@ public class jLogin extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btn_login.setBackground(new java.awt.Color(0, 0, 0));
+        btn_login.setForeground(new java.awt.Color(255, 255, 255));
+        btn_login.setToolTipText("");
+        btn_login.setRoundBottomLeft(20);
+        btn_login.setRoundBottomRight(20);
+        btn_login.setRoundTopLeft(20);
+        btn_login.setRoundTopRight(20);
+
+        txt_login.setFont(new java.awt.Font("Segoe UI", 1, 20)); // NOI18N
+        txt_login.setForeground(new java.awt.Color(255, 255, 255));
+        txt_login.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txt_login.setText("INICIAR SESIÓN");
+        txt_login.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        txt_login.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txt_loginMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                txt_loginMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                txt_loginMouseExited(evt);
+            }
+        });
+
+        javax.swing.GroupLayout btn_loginLayout = new javax.swing.GroupLayout(btn_login);
+        btn_login.setLayout(btn_loginLayout);
+        btn_loginLayout.setHorizontalGroup(
+            btn_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(txt_login, javax.swing.GroupLayout.DEFAULT_SIZE, 260, Short.MAX_VALUE)
+        );
+        btn_loginLayout.setVerticalGroup(
+            btn_loginLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addComponent(txt_login, javax.swing.GroupLayout.DEFAULT_SIZE, 50, Short.MAX_VALUE)
+        );
+
+        bg.add(btn_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 360, 260, 50));
+
+        input_password.setBackground(new java.awt.Color(0, 0, 0));
+        input_password.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
+        input_password.setForeground(new java.awt.Color(255, 255, 255));
+        input_password.setText("**************");
+        input_password.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        input_password.setSelectionColor(new java.awt.Color(0, 0, 0));
+        bg.add(input_password, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 280, 330, 40));
+
+        input_username.setBackground(new java.awt.Color(0, 0, 0));
+        input_username.setBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0), 4));
+        input_username.setForeground(new java.awt.Color(255, 255, 255));
+        input_username.setText("NOMBRE DE USUARIO");
+        input_username.setDisabledTextColor(new java.awt.Color(255, 255, 255));
+        input_username.setSelectionColor(new java.awt.Color(255, 255, 255));
+        input_username.setSelectionEnd(0);
+        input_username.setSelectionStart(0);
+        bg.add(input_username, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 220, 330, 40));
 
         btn_mini.setBackground(new java.awt.Color(254, 171, 33));
         btn_mini.setPreferredSize(new java.awt.Dimension(30, 30));
@@ -177,6 +238,22 @@ public class jLogin extends javax.swing.JFrame {
         this.setExtendedState(ICONIFIED);
     }//GEN-LAST:event_label_miniMouseClicked
 
+    private void txt_loginMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_loginMouseEntered
+        btn_login.setBackground(Color.white);
+        txt_login.setForeground(Color.black);
+    }//GEN-LAST:event_txt_loginMouseEntered
+
+    private void txt_loginMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_loginMouseExited
+        btn_login.setBackground(Color.black);
+        txt_login.setForeground(Color.white);
+    }//GEN-LAST:event_txt_loginMouseExited
+
+    private void txt_loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_loginMouseClicked
+        jMain main = new jMain();
+        main.setVisible(true);
+        this.setVisible(false);
+    }//GEN-LAST:event_txt_loginMouseClicked
+
     /**
      * @param args the command line arguments
      */
@@ -216,10 +293,14 @@ public class jLogin extends javax.swing.JFrame {
     private javax.swing.JLabel Bg_img;
     private javax.swing.JPanel bg;
     private javax.swing.JPanel btn_exit;
+    private com.company.iceshield.others.JPanelRound btn_login;
     private javax.swing.JPanel btn_mini;
     private javax.swing.JLabel icon_logo;
+    private com.company.iceshield.others.MyTextField input_password;
+    private com.company.iceshield.others.MyTextField input_username;
     private javax.swing.JLabel label_exit;
     private javax.swing.JLabel label_mini;
     private javax.swing.JPanel moviment_top;
+    private javax.swing.JLabel txt_login;
     // End of variables declaration//GEN-END:variables
 }
