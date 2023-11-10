@@ -1,21 +1,27 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package com.company.iceshield.paneles;
 
-/**
- *
- * @author Luidev02
- */
+import com.company.iceshield.IceShield;
+import com.company.iceshield.files.ConfigFile;
+import com.company.iceshield.jLogin;
+
+
 public class JconfigBD extends javax.swing.JPanel {
 
     /**
      * Creates new form JconfigBD
      */
+    ConfigFile cf = new ConfigFile();
+
     public JconfigBD() {
         initComponents();
         setSize(1310, 596);
+        txt_ip_input.setText(cf.getmsqlHost());
+        port_input.setText(cf.getmsqlPort());
+        namedb_input.setText(cf.getmsqlNameDB());
+        user_input1.setText(cf.getmsqlUser());
+        password_input.setText(cf.getmsqlPass());
+        
+        
     }
 
     /**
@@ -30,10 +36,16 @@ public class JconfigBD extends javax.swing.JPanel {
         txt_jconfigbd = new javax.swing.JLabel();
         txt_ip = new javax.swing.JLabel();
         txt_ip_input = new com.company.iceshield.others.MyTextField();
-        user_txt = new javax.swing.JLabel();
-        user_input = new com.company.iceshield.others.MyTextField();
+        password_txt = new javax.swing.JLabel();
+        password_input = new com.company.iceshield.others.MyTextField();
         port_txt1 = new javax.swing.JLabel();
         port_input = new com.company.iceshield.others.MyTextField();
+        user_txt1 = new javax.swing.JLabel();
+        user_input1 = new com.company.iceshield.others.MyTextField();
+        namedb_input = new com.company.iceshield.others.MyTextField();
+        password_txt1 = new javax.swing.JLabel();
+        jPanelRound1 = new com.company.iceshield.others.JPanelRound();
+        jLabel1 = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(254, 171, 33));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -56,12 +68,12 @@ public class JconfigBD extends javax.swing.JPanel {
         });
         add(txt_ip_input, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 110, 360, 40));
 
-        user_txt.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
-        user_txt.setText("User:");
-        add(user_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 220, -1, -1));
+        password_txt.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        password_txt.setText("Password:");
+        add(password_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 280, -1, -1));
 
-        user_input.setText("root");
-        add(user_input, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 220, 360, 40));
+        password_input.setText("Password");
+        add(password_input, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 280, 360, 40));
 
         port_txt1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         port_txt1.setText("Port:");
@@ -69,20 +81,65 @@ public class JconfigBD extends javax.swing.JPanel {
 
         port_input.setText("3306");
         add(port_input, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 160, 360, 40));
+
+        user_txt1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        user_txt1.setText("User:");
+        add(user_txt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 220, -1, -1));
+
+        user_input1.setText("root");
+        add(user_input1, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 220, 360, 40));
+
+        namedb_input.setText("HeladeriaDB");
+        add(namedb_input, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 340, 360, 40));
+
+        password_txt1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        password_txt1.setText("NameBD:");
+        add(password_txt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 340, -1, -1));
+
+        jPanelRound1.setBackground(new java.awt.Color(237, 226, 79));
+        jPanelRound1.setRoundBottomLeft(9);
+        jPanelRound1.setRoundBottomRight(9);
+        jPanelRound1.setRoundTopLeft(9);
+        jPanelRound1.setRoundTopRight(9);
+        jPanelRound1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        jLabel1.setText("Guardar");
+        jLabel1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jLabel1MouseClicked(evt);
+            }
+        });
+        jPanelRound1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 50));
+
+        add(jPanelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 420, 240, 50));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_ip_inputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_ip_inputActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_ip_inputActionPerformed
 
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        jLogin jl = new jLogin();
+        jl.setVisible(true);
+        
+    }//GEN-LAST:event_jLabel1MouseClicked
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private com.company.iceshield.others.JPanelRound jPanelRound1;
+    private com.company.iceshield.others.MyTextField namedb_input;
+    private com.company.iceshield.others.MyTextField password_input;
+    private javax.swing.JLabel password_txt;
+    private javax.swing.JLabel password_txt1;
     private com.company.iceshield.others.MyTextField port_input;
     private javax.swing.JLabel port_txt1;
     private javax.swing.JLabel txt_ip;
     private com.company.iceshield.others.MyTextField txt_ip_input;
     private javax.swing.JLabel txt_jconfigbd;
-    private com.company.iceshield.others.MyTextField user_input;
-    private javax.swing.JLabel user_txt;
+    private com.company.iceshield.others.MyTextField user_input1;
+    private javax.swing.JLabel user_txt1;
     // End of variables declaration//GEN-END:variables
 }
