@@ -42,7 +42,14 @@ public class ConfigFile {
     public String getmsqlPass() {
         return properties.getProperty("msql.pass");
     }
-
+    
+    public String getapprol(){
+        return properties.getProperty("app.rol");
+    }
+    
+    public String getappusername(){
+        return properties.getProperty("app.username");
+    }
     
     
     public void setAppHost(String host) {
@@ -66,6 +73,15 @@ public class ConfigFile {
 
     public void setAppPass(String pass) {
         properties.setProperty("msql.pass", pass);
+        savePropertiesToFile();
+    }
+    public void setApprol(String rol) {
+        properties.setProperty("app.rol", rol);
+        savePropertiesToFile();
+    }
+    
+    public void setAppusername(String username) {
+        properties.setProperty("app.username", username);
         savePropertiesToFile();
     }
 

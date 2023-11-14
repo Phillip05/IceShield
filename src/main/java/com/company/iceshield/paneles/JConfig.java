@@ -32,10 +32,6 @@ public class JConfig extends javax.swing.JPanel {
         clic_btn3 = new javax.swing.JLabel();
         btn1_img2 = new javax.swing.JLabel();
         btn1_txt2 = new javax.swing.JLabel();
-        btn_3 = new com.company.iceshield.others.JPanelRound();
-        clic_btn2 = new javax.swing.JLabel();
-        btn1_img1 = new javax.swing.JLabel();
-        btn1_txt1 = new javax.swing.JLabel();
         fondo_config = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(254, 171, 33));
@@ -70,7 +66,7 @@ public class JConfig extends javax.swing.JPanel {
         btn1_txt.setText("Configuración BD");
         btn_1.add(btn1_txt, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 99, 252, -1));
 
-        add(btn_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, 264, 189));
+        add(btn_1, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 320, 264, 189));
 
         btn_2.setBackground(new java.awt.Color(249, 238, 96));
         btn_2.setPreferredSize(new java.awt.Dimension(270, 190));
@@ -102,39 +98,7 @@ public class JConfig extends javax.swing.JPanel {
         btn1_txt2.setText("Usuarios");
         btn_2.add(btn1_txt2, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 99, 252, -1));
 
-        add(btn_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 30, -1, -1));
-
-        btn_3.setBackground(new java.awt.Color(249, 238, 96));
-        btn_3.setPreferredSize(new java.awt.Dimension(270, 190));
-        btn_3.setRoundBottomLeft(14);
-        btn_3.setRoundBottomRight(14);
-        btn_3.setRoundTopLeft(14);
-        btn_3.setRoundTopRight(14);
-        btn_3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        clic_btn2.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
-        clic_btn2.addMouseListener(new java.awt.event.MouseAdapter() {
-            public void mouseClicked(java.awt.event.MouseEvent evt) {
-                clic_btn2MouseClicked(evt);
-            }
-            public void mouseEntered(java.awt.event.MouseEvent evt) {
-                clic_btn2MouseEntered(evt);
-            }
-            public void mouseExited(java.awt.event.MouseEvent evt) {
-                clic_btn2MouseExited(evt);
-            }
-        });
-        btn_3.add(clic_btn2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 270, 190));
-
-        btn1_img1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/pro.png"))); // NOI18N
-        btn_3.add(btn1_img1, new org.netbeans.lib.awtextra.AbsoluteConstraints(101, 32, -1, -1));
-
-        btn1_txt1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        btn1_txt1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        btn1_txt1.setText("Productos");
-        btn_3.add(btn1_txt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(6, 99, 260, -1));
-
-        add(btn_3, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 370, -1, -1));
+        add(btn_2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 80, -1, -1));
 
         fondo_config.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         fondo_config.setIcon(new javax.swing.ImageIcon(getClass().getResource("/img/fondo_config.png"))); // NOI18N
@@ -156,18 +120,6 @@ public class JConfig extends javax.swing.JPanel {
         btn_1.setBackground(new Color(249,238,96));
     }//GEN-LAST:event_clic_btn1MouseExited
 
-    private void clic_btn2MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clic_btn2MouseClicked
-        
-    }//GEN-LAST:event_clic_btn2MouseClicked
-
-    private void clic_btn2MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clic_btn2MouseEntered
-        btn_3.setBackground(new Color(243,232,81));
-    }//GEN-LAST:event_clic_btn2MouseEntered
-
-    private void clic_btn2MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clic_btn2MouseExited
-        btn_3.setBackground(new Color(249,238,96));
-    }//GEN-LAST:event_clic_btn2MouseExited
-
     private void clic_btn3MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clic_btn3MouseClicked
         jMain.fondo_mv.removeAll();
         jMain.fondo_mv.add(ju,BorderLayout.CENTER);
@@ -186,16 +138,12 @@ public class JConfig extends javax.swing.JPanel {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel btn1_img;
-    private javax.swing.JLabel btn1_img1;
     private javax.swing.JLabel btn1_img2;
     private javax.swing.JLabel btn1_txt;
-    private javax.swing.JLabel btn1_txt1;
     private javax.swing.JLabel btn1_txt2;
     private com.company.iceshield.others.JPanelRound btn_1;
     private com.company.iceshield.others.JPanelRound btn_2;
-    private com.company.iceshield.others.JPanelRound btn_3;
     private javax.swing.JLabel clic_btn1;
-    private javax.swing.JLabel clic_btn2;
     private javax.swing.JLabel clic_btn3;
     private javax.swing.JLabel fondo_config;
     // End of variables declaration//GEN-END:variables

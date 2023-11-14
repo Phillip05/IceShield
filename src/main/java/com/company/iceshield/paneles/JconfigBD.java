@@ -3,6 +3,8 @@ package com.company.iceshield.paneles;
 import com.company.iceshield.IceShield;
 import com.company.iceshield.files.ConfigFile;
 import com.company.iceshield.jLogin;
+import java.awt.BorderLayout;
+import java.awt.Color;
 
 
 public class JconfigBD extends javax.swing.JPanel {
@@ -44,8 +46,9 @@ public class JconfigBD extends javax.swing.JPanel {
         user_input1 = new com.company.iceshield.others.MyTextField();
         namedb_input = new com.company.iceshield.others.MyTextField();
         password_txt1 = new javax.swing.JLabel();
-        jPanelRound1 = new com.company.iceshield.others.JPanelRound();
+        btn_guardar = new com.company.iceshield.others.JPanelRound();
         jLabel1 = new javax.swing.JLabel();
+        txt_cod = new javax.swing.JLabel();
 
         setBackground(new java.awt.Color(254, 171, 33));
         setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -96,12 +99,12 @@ public class JconfigBD extends javax.swing.JPanel {
         password_txt1.setText("NameBD:");
         add(password_txt1, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 340, -1, -1));
 
-        jPanelRound1.setBackground(new java.awt.Color(237, 226, 79));
-        jPanelRound1.setRoundBottomLeft(9);
-        jPanelRound1.setRoundBottomRight(9);
-        jPanelRound1.setRoundTopLeft(9);
-        jPanelRound1.setRoundTopRight(9);
-        jPanelRound1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        btn_guardar.setBackground(new java.awt.Color(237, 226, 79));
+        btn_guardar.setRoundBottomLeft(9);
+        btn_guardar.setRoundBottomRight(9);
+        btn_guardar.setRoundTopLeft(9);
+        btn_guardar.setRoundTopRight(9);
+        btn_guardar.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
@@ -110,10 +113,21 @@ public class JconfigBD extends javax.swing.JPanel {
             public void mouseClicked(java.awt.event.MouseEvent evt) {
                 jLabel1MouseClicked(evt);
             }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                jLabel1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                jLabel1MouseExited(evt);
+            }
         });
-        jPanelRound1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 50));
+        btn_guardar.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 240, 50));
 
-        add(jPanelRound1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 420, 240, 50));
+        add(btn_guardar, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 420, 240, 50));
+
+        txt_cod.setFont(new java.awt.Font("Segoe UI", 0, 18)); // NOI18N
+        txt_cod.setForeground(new java.awt.Color(102, 255, 102));
+        txt_cod.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        add(txt_cod, new org.netbeans.lib.awtextra.AbsoluteConstraints(390, 500, 470, 40));
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_ip_inputActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_ip_inputActionPerformed
@@ -121,21 +135,33 @@ public class JconfigBD extends javax.swing.JPanel {
     }//GEN-LAST:event_txt_ip_inputActionPerformed
 
     private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
-        jLogin jl = new jLogin();
-        jl.setVisible(true);
-        
+        cf.setAppHost(txt_ip_input.getText());
+        cf.setAppPort(port_input.getText());
+        cf.setAppnameDB(namedb_input.getText());
+        cf.setAppUser(user_input1.getText());
+        cf.setAppPass(password_input.getText());
+        txt_cod.setText("Se guardo Satisfactoriamente");
     }//GEN-LAST:event_jLabel1MouseClicked
+
+    private void jLabel1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseEntered
+        btn_guardar.setBackground(new Color(243,232,81));
+    }//GEN-LAST:event_jLabel1MouseEntered
+
+    private void jLabel1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseExited
+        btn_guardar.setBackground(new Color(249,238,96));
+    }//GEN-LAST:event_jLabel1MouseExited
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private com.company.iceshield.others.JPanelRound btn_guardar;
     private javax.swing.JLabel jLabel1;
-    private com.company.iceshield.others.JPanelRound jPanelRound1;
     private com.company.iceshield.others.MyTextField namedb_input;
     private com.company.iceshield.others.MyTextField password_input;
     private javax.swing.JLabel password_txt;
     private javax.swing.JLabel password_txt1;
     private com.company.iceshield.others.MyTextField port_input;
     private javax.swing.JLabel port_txt1;
+    private javax.swing.JLabel txt_cod;
     private javax.swing.JLabel txt_ip;
     private com.company.iceshield.others.MyTextField txt_ip_input;
     private javax.swing.JLabel txt_jconfigbd;

@@ -1,16 +1,39 @@
-
 package com.company.iceshield.paneles;
 
+import com.company.iceshield.database.MysqlConnector;
+import com.company.iceshield.files.ConfigFile;
 import java.awt.Color;
-
+import javax.swing.JOptionPane;
+import javax.swing.table.DefaultTableModel;
+import com.lowagie.text.Document;
+import com.lowagie.text.Element;
+import com.lowagie.text.PageSize;
+import com.lowagie.text.Paragraph;
+import com.lowagie.text.Phrase;
+import com.lowagie.text.pdf.PdfPCell;
+import com.lowagie.text.pdf.PdfPTable;
+import com.lowagie.text.pdf.PdfWriter;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.sql.Connection;
+import java.sql.Date;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class JGestor extends javax.swing.JPanel {
 
+    DefaultTableModel modelo;
+    MysqlConnector myconnector = new MysqlConnector();
+    ConfigFile cf = new ConfigFile();
 
     public JGestor() {
         initComponents();
         setSize(1310, 596);
-        
+
     }
 
     /**
@@ -26,27 +49,38 @@ public class JGestor extends javax.swing.JPanel {
         bg_icons_d = new com.company.iceshield.others.JPanelRound();
         btn_1 = new com.company.iceshield.others.JPanelRound();
         btn_1_click = new javax.swing.JLabel();
+        txt_helado = new javax.swing.JLabel();
         btn_2 = new com.company.iceshield.others.JPanelRound();
         btn_2_click = new javax.swing.JLabel();
+        Fresa = new javax.swing.JLabel();
         btn_3 = new com.company.iceshield.others.JPanelRound();
         btn_3_click = new javax.swing.JLabel();
+        txt_helado1 = new javax.swing.JLabel();
         btn_4 = new com.company.iceshield.others.JPanelRound();
         btn_4_click = new javax.swing.JLabel();
+        txt_helado3 = new javax.swing.JLabel();
         btn_5 = new com.company.iceshield.others.JPanelRound();
         btn_5_click = new javax.swing.JLabel();
+        txt_helado4 = new javax.swing.JLabel();
         btn_6 = new com.company.iceshield.others.JPanelRound();
         btn_6_click = new javax.swing.JLabel();
+        txt_helado5 = new javax.swing.JLabel();
         btn_7 = new com.company.iceshield.others.JPanelRound();
         btn_7_click = new javax.swing.JLabel();
+        txt_helado8 = new javax.swing.JLabel();
         btn_8 = new com.company.iceshield.others.JPanelRound();
         btn_8_click = new javax.swing.JLabel();
+        txt_helado7 = new javax.swing.JLabel();
         btn_9 = new com.company.iceshield.others.JPanelRound();
         btn_9_click = new javax.swing.JLabel();
+        txt_helado6 = new javax.swing.JLabel();
         table_table = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         txt_total = new javax.swing.JLabel();
         txt_money = new com.company.iceshield.others.JPanelRound();
         txt_money_label = new javax.swing.JLabel();
+        btn_limpiar1 = new com.company.iceshield.others.JPanelRound();
+        btn_txt_limpiar1 = new javax.swing.JLabel();
         btn_limpiar = new com.company.iceshield.others.JPanelRound();
         btn_txt_limpiar = new javax.swing.JLabel();
         btn_recibir = new com.company.iceshield.others.JPanelRound();
@@ -75,9 +109,13 @@ public class JGestor extends javax.swing.JPanel {
         btn_1.setRoundBottomRight(8);
         btn_1.setRoundTopLeft(8);
         btn_1.setRoundTopRight(8);
+        btn_1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btn_1_click.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_1_click.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_1_clickMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btn_1_clickMouseEntered(evt);
             }
@@ -85,17 +123,12 @@ public class JGestor extends javax.swing.JPanel {
                 btn_1_clickMouseExited(evt);
             }
         });
+        btn_1.add(btn_1_click, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 201, 145));
 
-        javax.swing.GroupLayout btn_1Layout = new javax.swing.GroupLayout(btn_1);
-        btn_1.setLayout(btn_1Layout);
-        btn_1Layout.setHorizontalGroup(
-            btn_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_1_click, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-        );
-        btn_1Layout.setVerticalGroup(
-            btn_1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_1_click, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-        );
+        txt_helado.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txt_helado.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txt_helado.setText("Vainilla");
+        btn_1.add(txt_helado, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 140, 100));
 
         btn_2.setBackground(new java.awt.Color(243, 232, 81));
         btn_2.setPreferredSize(new java.awt.Dimension(201, 145));
@@ -103,9 +136,13 @@ public class JGestor extends javax.swing.JPanel {
         btn_2.setRoundBottomRight(8);
         btn_2.setRoundTopLeft(8);
         btn_2.setRoundTopRight(8);
+        btn_2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btn_2_click.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_2_click.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_2_clickMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btn_2_clickMouseEntered(evt);
             }
@@ -113,17 +150,12 @@ public class JGestor extends javax.swing.JPanel {
                 btn_2_clickMouseExited(evt);
             }
         });
+        btn_2.add(btn_2_click, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 201, 145));
 
-        javax.swing.GroupLayout btn_2Layout = new javax.swing.GroupLayout(btn_2);
-        btn_2.setLayout(btn_2Layout);
-        btn_2Layout.setHorizontalGroup(
-            btn_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_2_click, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-        );
-        btn_2Layout.setVerticalGroup(
-            btn_2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_2_click, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-        );
+        Fresa.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        Fresa.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        Fresa.setText("Fresa");
+        btn_2.add(Fresa, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 140, 100));
 
         btn_3.setBackground(new java.awt.Color(243, 232, 81));
         btn_3.setPreferredSize(new java.awt.Dimension(201, 145));
@@ -131,9 +163,13 @@ public class JGestor extends javax.swing.JPanel {
         btn_3.setRoundBottomRight(8);
         btn_3.setRoundTopLeft(8);
         btn_3.setRoundTopRight(8);
+        btn_3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btn_3_click.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         btn_3_click.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_3_clickMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 btn_3_clickMouseEntered(evt);
             }
@@ -141,17 +177,12 @@ public class JGestor extends javax.swing.JPanel {
                 btn_3_clickMouseExited(evt);
             }
         });
+        btn_3.add(btn_3_click, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 201, 145));
 
-        javax.swing.GroupLayout btn_3Layout = new javax.swing.GroupLayout(btn_3);
-        btn_3.setLayout(btn_3Layout);
-        btn_3Layout.setHorizontalGroup(
-            btn_3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_3_click, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-        );
-        btn_3Layout.setVerticalGroup(
-            btn_3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_3_click, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-        );
+        txt_helado1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txt_helado1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txt_helado1.setText("Crema y \ngalletas");
+        btn_3.add(txt_helado1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, 200, 130));
 
         btn_4.setBackground(new java.awt.Color(243, 232, 81));
         btn_4.setPreferredSize(new java.awt.Dimension(201, 145));
@@ -159,19 +190,26 @@ public class JGestor extends javax.swing.JPanel {
         btn_4.setRoundBottomRight(8);
         btn_4.setRoundTopLeft(8);
         btn_4.setRoundTopRight(8);
+        btn_4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btn_4_click.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_4_click.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_4_clickMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_4_clickMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_4_clickMouseExited(evt);
+            }
+        });
+        btn_4.add(btn_4_click, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 201, 145));
 
-        javax.swing.GroupLayout btn_4Layout = new javax.swing.GroupLayout(btn_4);
-        btn_4.setLayout(btn_4Layout);
-        btn_4Layout.setHorizontalGroup(
-            btn_4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_4_click, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-        );
-        btn_4Layout.setVerticalGroup(
-            btn_4Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_4_click, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-        );
+        txt_helado3.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txt_helado3.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txt_helado3.setText("Chocolate");
+        btn_4.add(txt_helado3, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 140, 100));
 
         btn_5.setBackground(new java.awt.Color(243, 232, 81));
         btn_5.setPreferredSize(new java.awt.Dimension(201, 145));
@@ -179,19 +217,26 @@ public class JGestor extends javax.swing.JPanel {
         btn_5.setRoundBottomRight(8);
         btn_5.setRoundTopLeft(8);
         btn_5.setRoundTopRight(8);
+        btn_5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btn_5_click.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_5_click.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_5_clickMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_5_clickMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_5_clickMouseExited(evt);
+            }
+        });
+        btn_5.add(btn_5_click, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 201, 145));
 
-        javax.swing.GroupLayout btn_5Layout = new javax.swing.GroupLayout(btn_5);
-        btn_5.setLayout(btn_5Layout);
-        btn_5Layout.setHorizontalGroup(
-            btn_5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_5_click, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-        );
-        btn_5Layout.setVerticalGroup(
-            btn_5Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_5_click, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-        );
+        txt_helado4.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txt_helado4.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txt_helado4.setText("Chispas chocolate");
+        btn_5.add(txt_helado4, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 200, 100));
 
         btn_6.setBackground(new java.awt.Color(243, 232, 81));
         btn_6.setPreferredSize(new java.awt.Dimension(201, 145));
@@ -199,19 +244,26 @@ public class JGestor extends javax.swing.JPanel {
         btn_6.setRoundBottomRight(8);
         btn_6.setRoundTopLeft(8);
         btn_6.setRoundTopRight(8);
+        btn_6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btn_6_click.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_6_click.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_6_clickMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_6_clickMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_6_clickMouseExited(evt);
+            }
+        });
+        btn_6.add(btn_6_click, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 201, 145));
 
-        javax.swing.GroupLayout btn_6Layout = new javax.swing.GroupLayout(btn_6);
-        btn_6.setLayout(btn_6Layout);
-        btn_6Layout.setHorizontalGroup(
-            btn_6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_6_click, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-        );
-        btn_6Layout.setVerticalGroup(
-            btn_6Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_6_click, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-        );
+        txt_helado5.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txt_helado5.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txt_helado5.setText("Vainilla Fresa");
+        btn_6.add(txt_helado5, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 140, 100));
 
         btn_7.setBackground(new java.awt.Color(243, 232, 81));
         btn_7.setPreferredSize(new java.awt.Dimension(201, 145));
@@ -219,19 +271,26 @@ public class JGestor extends javax.swing.JPanel {
         btn_7.setRoundBottomRight(8);
         btn_7.setRoundTopLeft(8);
         btn_7.setRoundTopRight(8);
+        btn_7.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btn_7_click.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_7_click.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_7_clickMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_7_clickMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_7_clickMouseExited(evt);
+            }
+        });
+        btn_7.add(btn_7_click, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 201, 145));
 
-        javax.swing.GroupLayout btn_7Layout = new javax.swing.GroupLayout(btn_7);
-        btn_7.setLayout(btn_7Layout);
-        btn_7Layout.setHorizontalGroup(
-            btn_7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_7_click, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-        );
-        btn_7Layout.setVerticalGroup(
-            btn_7Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_7_click, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-        );
+        txt_helado8.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txt_helado8.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txt_helado8.setText("caramelo");
+        btn_7.add(txt_helado8, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, 140, 100));
 
         btn_8.setBackground(new java.awt.Color(243, 232, 81));
         btn_8.setPreferredSize(new java.awt.Dimension(201, 145));
@@ -239,19 +298,26 @@ public class JGestor extends javax.swing.JPanel {
         btn_8.setRoundBottomRight(8);
         btn_8.setRoundTopLeft(8);
         btn_8.setRoundTopRight(8);
+        btn_8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btn_8_click.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_8_click.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_8_clickMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_8_clickMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_8_clickMouseExited(evt);
+            }
+        });
+        btn_8.add(btn_8_click, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 201, 145));
 
-        javax.swing.GroupLayout btn_8Layout = new javax.swing.GroupLayout(btn_8);
-        btn_8.setLayout(btn_8Layout);
-        btn_8Layout.setHorizontalGroup(
-            btn_8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_8_click, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-        );
-        btn_8Layout.setVerticalGroup(
-            btn_8Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_8_click, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-        );
+        txt_helado7.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txt_helado7.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txt_helado7.setText("chispas galletas");
+        btn_8.add(txt_helado7, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 200, 100));
 
         btn_9.setBackground(new java.awt.Color(243, 232, 81));
         btn_9.setPreferredSize(new java.awt.Dimension(201, 145));
@@ -259,19 +325,26 @@ public class JGestor extends javax.swing.JPanel {
         btn_9.setRoundBottomRight(8);
         btn_9.setRoundTopLeft(8);
         btn_9.setRoundTopRight(8);
+        btn_9.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         btn_9_click.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_9_click.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_9_clickMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_9_clickMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_9_clickMouseExited(evt);
+            }
+        });
+        btn_9.add(btn_9_click, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 201, 145));
 
-        javax.swing.GroupLayout btn_9Layout = new javax.swing.GroupLayout(btn_9);
-        btn_9.setLayout(btn_9Layout);
-        btn_9Layout.setHorizontalGroup(
-            btn_9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_9_click, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 201, Short.MAX_VALUE)
-        );
-        btn_9Layout.setVerticalGroup(
-            btn_9Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(btn_9_click, javax.swing.GroupLayout.DEFAULT_SIZE, 145, Short.MAX_VALUE)
-        );
+        txt_helado6.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        txt_helado6.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        txt_helado6.setText("caramelo salado");
+        btn_9.add(txt_helado6, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, 200, 100));
 
         javax.swing.GroupLayout bg_icons_dLayout = new javax.swing.GroupLayout(bg_icons_d);
         bg_icons_d.setLayout(bg_icons_dLayout);
@@ -328,14 +401,14 @@ public class JGestor extends javax.swing.JPanel {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null}
+
             },
             new String [] {
                 "Producto", "Unidad U.", "Precio", "Precio Total"
             }
         ) {
             Class[] types = new Class [] {
-                java.lang.String.class, java.lang.String.class, java.lang.String.class, java.lang.String.class
+                java.lang.String.class, java.lang.String.class, java.lang.Integer.class, java.lang.Integer.class
             };
             boolean[] canEdit = new boolean [] {
                 false, false, false, false
@@ -382,6 +455,33 @@ public class JGestor extends javax.swing.JPanel {
 
         add(txt_money, new org.netbeans.lib.awtextra.AbsoluteConstraints(1120, 380, 170, 40));
 
+        btn_limpiar1.setBackground(new java.awt.Color(243, 110, 81));
+        btn_limpiar1.setRoundBottomLeft(9);
+        btn_limpiar1.setRoundBottomRight(9);
+        btn_limpiar1.setRoundTopLeft(9);
+        btn_limpiar1.setRoundTopRight(9);
+        btn_limpiar1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        btn_txt_limpiar1.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
+        btn_txt_limpiar1.setForeground(new java.awt.Color(255, 255, 255));
+        btn_txt_limpiar1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        btn_txt_limpiar1.setText("Limpiar Seleccionado");
+        btn_txt_limpiar1.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_txt_limpiar1.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_txt_limpiar1MouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_txt_limpiar1MouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_txt_limpiar1MouseExited(evt);
+            }
+        });
+        btn_limpiar1.add(btn_txt_limpiar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 280, 50));
+
+        add(btn_limpiar1, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, 530, 280, 50));
+
         btn_limpiar.setBackground(new java.awt.Color(243, 110, 81));
         btn_limpiar.setRoundBottomLeft(9);
         btn_limpiar.setRoundBottomRight(9);
@@ -392,6 +492,18 @@ public class JGestor extends javax.swing.JPanel {
         btn_txt_limpiar.setForeground(new java.awt.Color(255, 255, 255));
         btn_txt_limpiar.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btn_txt_limpiar.setText("Limpiar");
+        btn_txt_limpiar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_txt_limpiar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_txt_limpiarMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_txt_limpiarMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_txt_limpiarMouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout btn_limpiarLayout = new javax.swing.GroupLayout(btn_limpiar);
         btn_limpiar.setLayout(btn_limpiarLayout);
@@ -415,6 +527,18 @@ public class JGestor extends javax.swing.JPanel {
         btn_txt_recibir.setFont(new java.awt.Font("Segoe UI", 0, 24)); // NOI18N
         btn_txt_recibir.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         btn_txt_recibir.setText("Recibir Dinero");
+        btn_txt_recibir.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
+        btn_txt_recibir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                btn_txt_recibirMouseClicked(evt);
+            }
+            public void mouseEntered(java.awt.event.MouseEvent evt) {
+                btn_txt_recibirMouseEntered(evt);
+            }
+            public void mouseExited(java.awt.event.MouseEvent evt) {
+                btn_txt_recibirMouseExited(evt);
+            }
+        });
 
         javax.swing.GroupLayout btn_recibirLayout = new javax.swing.GroupLayout(btn_recibir);
         btn_recibir.setLayout(btn_recibirLayout);
@@ -431,31 +555,306 @@ public class JGestor extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void btn_1_clickMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_1_clickMouseEntered
-        btn_1.setBackground(new Color(245,232,57));
+        btn_1.setBackground(new Color(245, 232, 57));
     }//GEN-LAST:event_btn_1_clickMouseEntered
 
     private void btn_1_clickMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_1_clickMouseExited
-        btn_1.setBackground(new Color(243,232,81));
+        btn_1.setBackground(new Color(243, 232, 81));
     }//GEN-LAST:event_btn_1_clickMouseExited
 
     private void btn_2_clickMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_2_clickMouseEntered
-        btn_2.setBackground(new Color(245,232,57));
+        btn_2.setBackground(new Color(245, 232, 57));
     }//GEN-LAST:event_btn_2_clickMouseEntered
 
     private void btn_2_clickMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_2_clickMouseExited
-        btn_2.setBackground(new Color(243,232,81));
+        btn_2.setBackground(new Color(243, 232, 81));
     }//GEN-LAST:event_btn_2_clickMouseExited
 
     private void btn_3_clickMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_3_clickMouseEntered
-        btn_3.setBackground(new Color(245,232,57));
+        btn_3.setBackground(new Color(245, 232, 57));
     }//GEN-LAST:event_btn_3_clickMouseEntered
 
     private void btn_3_clickMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_3_clickMouseExited
-        btn_3.setBackground(new Color(243,232,81));
+        btn_3.setBackground(new Color(243, 232, 81));
     }//GEN-LAST:event_btn_3_clickMouseExited
+
+    private void btn_1_clickMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_1_clickMouseClicked
+        agregarFila("Vainilla", "1", 2000, 2500);
+        txt_money_label.setText(String.valueOf(sumarColumna("Precio Total") + "$"));
+    }//GEN-LAST:event_btn_1_clickMouseClicked
+
+    private void btn_2_clickMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_2_clickMouseClicked
+        agregarFila("Fresa", "1", 1700, 2000);
+        txt_money_label.setText(String.valueOf(sumarColumna("Precio Total") + "$"));
+    }//GEN-LAST:event_btn_2_clickMouseClicked
+
+    private void btn_3_clickMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_3_clickMouseClicked
+        agregarFila("Crema y galletas", "1", 3000, 3500);
+        txt_money_label.setText(String.valueOf(sumarColumna("Precio Total") + "$"));
+    }//GEN-LAST:event_btn_3_clickMouseClicked
+
+    private void btn_4_clickMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_4_clickMouseClicked
+        agregarFila("Chocolate", "1", 2500, 3000);
+        txt_money_label.setText(String.valueOf(sumarColumna("Precio Total") + "$"));
+    }//GEN-LAST:event_btn_4_clickMouseClicked
+
+    private void btn_4_clickMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_4_clickMouseEntered
+        btn_4.setBackground(new Color(245, 232, 57));
+    }//GEN-LAST:event_btn_4_clickMouseEntered
+
+    private void btn_4_clickMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_4_clickMouseExited
+        btn_4.setBackground(new Color(243, 232, 81));
+    }//GEN-LAST:event_btn_4_clickMouseExited
+
+    private void btn_5_clickMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_5_clickMouseClicked
+        agregarFila("Chispas Chocolate", "1", 2800, 3000);
+        txt_money_label.setText(String.valueOf(sumarColumna("Precio Total") + "$"));
+    }//GEN-LAST:event_btn_5_clickMouseClicked
+
+    private void btn_5_clickMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_5_clickMouseEntered
+        btn_5.setBackground(new Color(245, 232, 57));
+    }//GEN-LAST:event_btn_5_clickMouseEntered
+
+    private void btn_5_clickMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_5_clickMouseExited
+        btn_5.setBackground(new Color(243, 232, 81));
+    }//GEN-LAST:event_btn_5_clickMouseExited
+
+    private void btn_6_clickMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_6_clickMouseClicked
+        agregarFila("Vainilla Fresa", "1", 4000, 4500);
+        txt_money_label.setText(String.valueOf(sumarColumna("Precio Total") + "$"));
+    }//GEN-LAST:event_btn_6_clickMouseClicked
+
+    private void btn_6_clickMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_6_clickMouseEntered
+        btn_6.setBackground(new Color(245, 232, 57));
+    }//GEN-LAST:event_btn_6_clickMouseEntered
+
+    private void btn_6_clickMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_6_clickMouseExited
+        btn_6.setBackground(new Color(243, 232, 81));
+    }//GEN-LAST:event_btn_6_clickMouseExited
+
+    private void btn_7_clickMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_7_clickMouseClicked
+        agregarFila("caramelo", "1", 2000, 2500);
+        txt_money_label.setText(String.valueOf(sumarColumna("Precio Total") + "$"));
+    }//GEN-LAST:event_btn_7_clickMouseClicked
+
+    private void btn_7_clickMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_7_clickMouseEntered
+        btn_7.setBackground(new Color(245, 232, 57));
+    }//GEN-LAST:event_btn_7_clickMouseEntered
+
+    private void btn_7_clickMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_7_clickMouseExited
+        btn_7.setBackground(new Color(243, 232, 81));
+    }//GEN-LAST:event_btn_7_clickMouseExited
+
+    private void btn_8_clickMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_8_clickMouseClicked
+        agregarFila("Chispas Galleta", "1", 4500, 5000);
+        txt_money_label.setText(String.valueOf(sumarColumna("Precio Total") + "$"));
+    }//GEN-LAST:event_btn_8_clickMouseClicked
+
+    private void btn_8_clickMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_8_clickMouseEntered
+        btn_8.setBackground(new Color(245, 232, 57));
+    }//GEN-LAST:event_btn_8_clickMouseEntered
+
+    private void btn_8_clickMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_8_clickMouseExited
+        btn_8.setBackground(new Color(243, 232, 81));
+    }//GEN-LAST:event_btn_8_clickMouseExited
+
+    private void btn_9_clickMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_9_clickMouseClicked
+        agregarFila("Caramelo Salado", "1", 4500, 5000);
+        txt_money_label.setText(String.valueOf(sumarColumna("Precio Total") + "$"));
+    }//GEN-LAST:event_btn_9_clickMouseClicked
+
+    private void btn_9_clickMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_9_clickMouseEntered
+        btn_9.setBackground(new Color(245, 232, 57));
+    }//GEN-LAST:event_btn_9_clickMouseEntered
+
+    private void btn_9_clickMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_9_clickMouseExited
+        btn_9.setBackground(new Color(243, 232, 81));
+    }//GEN-LAST:event_btn_9_clickMouseExited
+
+    private void btn_txt_limpiarMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_txt_limpiarMouseExited
+        btn_limpiar.setBackground(new Color(243, 110, 81));
+    }//GEN-LAST:event_btn_txt_limpiarMouseExited
+
+    private void btn_txt_limpiarMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_txt_limpiarMouseEntered
+        btn_limpiar.setBackground(Color.red);
+    }//GEN-LAST:event_btn_txt_limpiarMouseEntered
+
+    private void btn_txt_limpiarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_txt_limpiarMouseClicked
+        modelo.setRowCount(0);
+        txt_money_label.setText("0$");
+    }//GEN-LAST:event_btn_txt_limpiarMouseClicked
+
+    private void btn_txt_recibirMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_txt_recibirMouseEntered
+        btn_recibir.setBackground(new Color(245, 232, 57));
+    }//GEN-LAST:event_btn_txt_recibirMouseEntered
+
+    private void btn_txt_recibirMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_txt_recibirMouseExited
+        btn_recibir.setBackground(new Color(243, 232, 81));
+    }//GEN-LAST:event_btn_txt_recibirMouseExited
+
+    private void btn_txt_limpiar1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_txt_limpiar1MouseClicked
+
+        int filaSeleccionada = jTable1.getSelectedRow();
+        if (filaSeleccionada != -1) {
+            modelo.removeRow(filaSeleccionada);
+        } else {
+            JOptionPane.showMessageDialog(this, "Selecciona un producto para borrar", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+        txt_money_label.setText(String.valueOf(sumarColumna("Precio Total") + "$"));
+
+    }//GEN-LAST:event_btn_txt_limpiar1MouseClicked
+
+    private void btn_txt_limpiar1MouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_txt_limpiar1MouseEntered
+        btn_limpiar1.setBackground(Color.red);
+    }//GEN-LAST:event_btn_txt_limpiar1MouseEntered
+
+    private void btn_txt_limpiar1MouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_txt_limpiar1MouseExited
+        btn_limpiar1.setBackground(new Color(243, 110, 81));
+    }//GEN-LAST:event_btn_txt_limpiar1MouseExited
+
+    private void btn_txt_recibirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn_txt_recibirMouseClicked
+        realizarCobro();
+
+        guardarVentaEnDB(cf.getappusername(), obtenerDatosTablaComoTexto(), sumarColumna("Precio Total"));
+    }//GEN-LAST:event_btn_txt_recibirMouseClicked
+
+    // aqui agregamos cada sabor de helado 
+    private void agregarFila(String producto, String unidad, Integer precio, Integer PrecioTotal) {
+        modelo = (DefaultTableModel) jTable1.getModel();
+        Object[] fila = {producto, unidad, precio, PrecioTotal};
+        modelo.addRow(fila);
+    }
+
+    // aqui se realiza la suma de toda la columna de total 
+    private int sumarColumna(String nombreColumna) {
+        int suma = 0;
+        int columna = modelo.findColumn(nombreColumna);
+
+        for (int fila = 0; fila < modelo.getRowCount(); fila++) {
+            suma += (int) modelo.getValueAt(fila, columna);
+        }
+        return suma;
+    }
+
+    private void realizarCobro() {
+        double valorProducto = sumarColumna("Precio Total");
+        String dineroIngresadoStr = JOptionPane.showInputDialog(null,
+                "El valor total es: $" + valorProducto + "\nIngrese la cantidad de dinero:");
+
+        if (dineroIngresadoStr != null && !dineroIngresadoStr.isEmpty()) {
+            try {
+                double dineroIngresado = Double.parseDouble(dineroIngresadoStr);
+
+                if (dineroIngresado >= valorProducto) {
+                    double cambio = dineroIngresado - valorProducto;
+                    JOptionPane.showMessageDialog(null, "Pago exitoso. Cambio: $" + cambio);
+
+                    // Generar el PDF con la información del pago y la tabla
+                    generarPDF_iText("ComprobantePago_Heladeria.pdf", "Producto comprado: Producto1\nValor: $" + valorProducto + "\nCambio: $" + cambio + "\n");
+
+                } else {
+                    JOptionPane.showMessageDialog(null, "El dinero ingresado no es suficiente.", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            } catch (NumberFormatException | IOException ex) {
+                JOptionPane.showMessageDialog(null, "Error al procesar el pago.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } else {
+            JOptionPane.showMessageDialog(null, "Operación cancelada por el usuario.");
+        }
+    }
+
+    private void generarPDF_iText(String nombreArchivo, String contenido) throws IOException {
+        Document document = new Document(PageSize.A4);
+
+        try {
+            PdfWriter.getInstance(document, new FileOutputStream(nombreArchivo));
+            document.open();
+
+            // Agregar el contenido al PDF
+            document.add(new Paragraph(contenido));
+
+            // Agregar la tabla al PDF
+            document.add(generarTablaPDF());
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            document.close();
+        }
+    }
+
+    private Element generarTablaPDF() {
+        PdfPTable pdfTable = new PdfPTable(modelo.getColumnCount());
+
+        // Agregar encabezados de columna
+        for (int i = 0; i < modelo.getColumnCount(); i++) {
+            pdfTable.addCell(new PdfPCell(new Phrase(modelo.getColumnName(i))));
+        }
+
+        // Agregar filas y celdas
+        for (int row = 0; row < modelo.getRowCount(); row++) {
+            for (int column = 0; column < modelo.getColumnCount(); column++) {
+                pdfTable.addCell(new PdfPCell(new Phrase(String.valueOf(modelo.getValueAt(row, column)))));
+            }
+        }
+
+        return pdfTable;
+    }
+
+    private String obtenerDatosTablaComoTexto() {
+        StringBuilder texto = new StringBuilder();
+
+        // Obtener el modelo de la tabla
+        DefaultTableModel model = (DefaultTableModel) jTable1.getModel();
+
+        // Obtener nombres de columnas
+        int columnCount = model.getColumnCount();
+        for (int i = 0; i < columnCount; i++) {
+            texto.append(model.getColumnName(i)).append("\t");
+        }
+        texto.append("\n");
+
+        // Obtener datos de las celdas
+        int rowCount = model.getRowCount();
+        for (int row = 0; row < rowCount; row++) {
+            for (int col = 0; col < columnCount; col++) {
+                texto.append(model.getValueAt(row, col)).append("\t");
+            }
+            texto.append("\n");
+        }
+
+        return texto.toString();
+    }
+
+    private void guardarVentaEnDB(String vendedor, String productos_venta, int valortotal) {
+        String query = "INSERT INTO ventas (vendedor, valortotal, productos_venta) VALUES (?, ?, ?)";
+
+        try (Connection connection = myconnector.getConexionDB(); PreparedStatement statement = connection.prepareStatement(query, Statement.RETURN_GENERATED_KEYS)) {
+
+            statement.setString(1, vendedor);
+            statement.setInt(2, valortotal);
+            statement.setString(3, productos_venta);
+
+            int filasAfectadas = statement.executeUpdate();
+
+            if (filasAfectadas > 0) {
+                // Obtener el ID generado automáticamente
+                ResultSet generatedKeys = statement.getGeneratedKeys();
+                if (generatedKeys.next()) {
+                    int idVentaGenerado = generatedKeys.getInt(1);
+                    System.out.println("ID de la venta generada: " + idVentaGenerado);
+                }
+            } else {
+                System.out.println("No se pudo insertar la venta.");
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(JGestor.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel Fresa;
     private com.company.iceshield.others.JPanelRound bg_icons;
     private com.company.iceshield.others.JPanelRound bg_icons_d;
     private com.company.iceshield.others.JPanelRound btn_1;
@@ -477,11 +876,21 @@ public class JGestor extends javax.swing.JPanel {
     private com.company.iceshield.others.JPanelRound btn_9;
     private javax.swing.JLabel btn_9_click;
     private com.company.iceshield.others.JPanelRound btn_limpiar;
+    private com.company.iceshield.others.JPanelRound btn_limpiar1;
     private com.company.iceshield.others.JPanelRound btn_recibir;
     private javax.swing.JLabel btn_txt_limpiar;
+    private javax.swing.JLabel btn_txt_limpiar1;
     private javax.swing.JLabel btn_txt_recibir;
     private javax.swing.JTable jTable1;
     private javax.swing.JScrollPane table_table;
+    private javax.swing.JLabel txt_helado;
+    private javax.swing.JLabel txt_helado1;
+    private javax.swing.JLabel txt_helado3;
+    private javax.swing.JLabel txt_helado4;
+    private javax.swing.JLabel txt_helado5;
+    private javax.swing.JLabel txt_helado6;
+    private javax.swing.JLabel txt_helado7;
+    private javax.swing.JLabel txt_helado8;
     private com.company.iceshield.others.JPanelRound txt_money;
     private javax.swing.JLabel txt_money_label;
     private javax.swing.JLabel txt_total;

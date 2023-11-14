@@ -1,18 +1,33 @@
-
 package com.company.iceshield;
 
+import com.company.iceshield.database.MysqlConnector;
+import com.company.iceshield.files.ConfigFile;
+import com.company.iceshield.paneles.JcconfigBD;
 import com.company.iceshield.paneles.jMain;
 import java.awt.Color;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.sql.Statement;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class jLogin extends javax.swing.JFrame {
 
     /**
      * Creates new form jLogin
      */
-    int xMouse,yMouse;
+    jMain main = new jMain();
+    ConfigFile cf = new ConfigFile();
+    MysqlConnector myconnector = new MysqlConnector();
+    int xMouse, yMouse;
+
     public jLogin() {
         initComponents();
         setSize(891, 501);
+        JcconfigBD jc = new JcconfigBD();
+        if (myconnector.getsqtf() == 1) {
+            jc.setVisible(true);
+        }
     }
 
     /**
@@ -25,6 +40,7 @@ public class jLogin extends javax.swing.JFrame {
     private void initComponents() {
 
         bg = new javax.swing.JPanel();
+        errorusers_login = new javax.swing.JLabel();
         btn_login = new com.company.iceshield.others.JPanelRound();
         txt_login = new javax.swing.JLabel();
         input_password = new com.company.iceshield.others.MyTextField();
@@ -44,6 +60,10 @@ public class jLogin extends javax.swing.JFrame {
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         bg.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        errorusers_login.setFont(new java.awt.Font("Segoe UI", 0, 20)); // NOI18N
+        errorusers_login.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
+        bg.add(errorusers_login, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 430, 360, 40));
 
         btn_login.setBackground(new java.awt.Color(0, 0, 0));
         btn_login.setForeground(new java.awt.Color(255, 255, 255));
@@ -210,20 +230,20 @@ public class jLogin extends javax.swing.JFrame {
     private void moviment_topMouseDragged(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_moviment_topMouseDragged
         int x = evt.getXOnScreen();
         int y = evt.getYOnScreen();
-        this.setLocation(x-xMouse, y-yMouse);
-                
+        this.setLocation(x - xMouse, y - yMouse);
+
     }//GEN-LAST:event_moviment_topMouseDragged
 
     private void label_miniMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_miniMouseExited
-        btn_mini.setBackground(new Color(254,171,33));
+        btn_mini.setBackground(new Color(254, 171, 33));
     }//GEN-LAST:event_label_miniMouseExited
 
     private void label_miniMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_miniMouseEntered
-        btn_mini.setBackground(new Color(210,141,25));
+        btn_mini.setBackground(new Color(210, 141, 25));
     }//GEN-LAST:event_label_miniMouseEntered
 
     private void label_exitMouseExited(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exitMouseExited
-        btn_exit.setBackground(new Color(254,171,33));
+        btn_exit.setBackground(new Color(254, 171, 33));
     }//GEN-LAST:event_label_exitMouseExited
 
     private void label_exitMouseEntered(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_label_exitMouseEntered
@@ -249,9 +269,32 @@ public class jLogin extends javax.swing.JFrame {
     }//GEN-LAST:event_txt_loginMouseExited
 
     private void txt_loginMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_loginMouseClicked
-        jMain main = new jMain();
-        main.setVisible(true);
-        this.setVisible(false);
+        // variables
+        String username = input_username.getText();
+        String password = input_password.getText();
+        String Query = "SELECT * FROM login WHERE username ='" + username + "' and password ='" + password + "'";
+
+        try {
+            Statement st = myconnector.getConexionDB().createStatement();
+            ResultSet rs = st.executeQuery(Query);
+
+            // Verifica si hay resultados y obtén el rol
+            if (rs.next()) {
+                String rol = rs.getString("rol"); // Asumiendo que el campo se llama "rol"
+                cf.setApprol(rol);
+                cf.setAppusername(username);
+                main.setVisible(true);
+                this.setVisible(false);
+                System.out.println("Clave correcta bro. Rol: " + rol);
+            } else {
+                errorusers_login.setText("Usuario o Contraseña Incorrecta");
+                errorusers_login.setForeground(Color.red);
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(jLogin.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
     }//GEN-LAST:event_txt_loginMouseClicked
 
     /**
@@ -295,6 +338,7 @@ public class jLogin extends javax.swing.JFrame {
     private javax.swing.JPanel btn_exit;
     private com.company.iceshield.others.JPanelRound btn_login;
     private javax.swing.JPanel btn_mini;
+    private javax.swing.JLabel errorusers_login;
     private javax.swing.JLabel icon_logo;
     private com.company.iceshield.others.MyTextField input_password;
     private com.company.iceshield.others.MyTextField input_username;

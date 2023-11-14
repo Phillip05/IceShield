@@ -1,21 +1,52 @@
-/*
- * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
- * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JPanel.java to edit this template
- */
 package com.company.iceshield.paneles;
 
-/**
- *
- * @author Luidev02
- */
+import com.company.iceshield.database.MysqlConnector;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.Vector;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.table.DefaultTableModel;
+
 public class JUser extends javax.swing.JPanel {
 
     /**
      * Creates new form JUser
      */
+    MysqlConnector myconnector = new MysqlConnector();
+    DefaultTableModel modelo;
+
     public JUser() {
         initComponents();
         setSize(1310, 596);
+
+        String query = "SELECT * FROM login";
+
+        try (Connection connection = myconnector.getConexionDB(); PreparedStatement preparedStatement = connection.prepareStatement(query); ResultSet resultSet = preparedStatement.executeQuery()) {
+
+            // Limpiar el modelo de la tabla antes de agregar nuevos datos
+            DefaultTableModel modelo = (DefaultTableModel) jTable1.getModel();
+            modelo.setRowCount(0);
+
+            // Recorrer los resultados y agregar filas al modelo de la tabla
+            while (resultSet.next()) {
+                // Obtener datos de la fila actual
+                int id = resultSet.getInt("id");
+                String username = resultSet.getString("username");
+                String password = resultSet.getString("password");
+                String rol = resultSet.getString("rol");
+
+                // Agregar una fila al modelo de la tabla con los datos obtenidos
+                modelo.addRow(new Object[]{id, username, password, rol});
+            }
+
+        } catch (SQLException ex) {
+            Logger.getLogger(JUser.class.getName()).log(Level.SEVERE, null, ex);
+            // Manejar la excepción según tus necesidades
+        }
+
     }
 
     /**

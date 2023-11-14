@@ -1,6 +1,7 @@
 
 package com.company.iceshield.paneles;
 
+import com.company.iceshield.files.ConfigFile;
 import java.awt.BorderLayout;
 import java.awt.Color;
 
@@ -13,6 +14,7 @@ public class JPrincipal extends javax.swing.JPanel {
     public JPrincipal() {
         initComponents();
         setSize(1310, 596);
+
     }
 
     /**
@@ -192,10 +194,17 @@ public class JPrincipal extends javax.swing.JPanel {
     }//GEN-LAST:event_btn3_clicMouseExited
 
     private void btn2_clicMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn2_clicMouseClicked
-        jMain.fondo_mv.removeAll();
-        jMain.fondo_mv.add(jc,BorderLayout.CENTER);
-        jMain.fondo_mv.revalidate();
-        jMain.fondo_mv.repaint();
+        ConfigFile cf = new ConfigFile();
+        
+        if(cf.getapprol().equals("administrador")){
+            jMain.fondo_mv.removeAll();
+            jMain.fondo_mv.add(jc,BorderLayout.CENTER);
+            jMain.fondo_mv.revalidate();
+            jMain.fondo_mv.repaint();
+        }else{
+            btn_2.setBackground(Color.red);
+        }
+
     }//GEN-LAST:event_btn2_clicMouseClicked
 
     private void clic_btn1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_clic_btn1MouseClicked
@@ -204,12 +213,22 @@ public class JPrincipal extends javax.swing.JPanel {
         jMain.fondo_mv.revalidate();
         jMain.fondo_mv.repaint();
     }//GEN-LAST:event_clic_btn1MouseClicked
-
+    
     private void btn3_clicMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_btn3_clicMouseClicked
-        jMain.fondo_mv.removeAll();
-        jMain.fondo_mv.add(jr,BorderLayout.CENTER);
-        jMain.fondo_mv.revalidate();
-        jMain.fondo_mv.repaint();
+        
+        ConfigFile cf = new ConfigFile();
+        
+        if(cf.getapprol().equals("administrador")){
+            jMain.fondo_mv.removeAll();
+            jMain.fondo_mv.add(jr,BorderLayout.CENTER);
+            jMain.fondo_mv.revalidate();
+            jMain.fondo_mv.repaint();
+        }else{
+            btn_3.setBackground(Color.red);
+        }
+        
+
+
     }//GEN-LAST:event_btn3_clicMouseClicked
 
 

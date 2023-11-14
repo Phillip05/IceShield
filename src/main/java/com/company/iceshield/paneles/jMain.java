@@ -1,6 +1,8 @@
 
 package com.company.iceshield.paneles;
 
+import com.company.iceshield.files.ConfigFile;
+import com.company.iceshield.jLogin;
 import java.awt.BorderLayout;
 import java.awt.Color;
 
@@ -10,6 +12,7 @@ public class jMain extends javax.swing.JFrame {
 
     int Xmouse,Ymouse;
     JPrincipal jp = new JPrincipal();
+    ConfigFile cf = new ConfigFile();
     public jMain() {
         initComponents();
         setSize(1310, 682);
@@ -164,6 +167,9 @@ public class jMain extends javax.swing.JFrame {
         txt_cerrar.setText("Cerrar Sesión");
         txt_cerrar.setCursor(new java.awt.Cursor(java.awt.Cursor.HAND_CURSOR));
         txt_cerrar.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                txt_cerrarMouseClicked(evt);
+            }
             public void mouseEntered(java.awt.event.MouseEvent evt) {
                 txt_cerrarMouseEntered(evt);
             }
@@ -303,6 +309,18 @@ public class jMain extends javax.swing.JFrame {
         fondo_mv.repaint();
     }//GEN-LAST:event_txt_inicioMouseClicked
 
+    private void txt_cerrarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_cerrarMouseClicked
+        cf.setAppusername("NO");
+        cf.setApprol("NO");
+        volverlogin();
+    }//GEN-LAST:event_txt_cerrarMouseClicked
+
+        private void volverlogin() {
+        jLogin jmain = new jLogin();
+        jmain.setVisible(true);
+        this.setVisible(false);
+    }
+    
     /**
      * @param args the command line arguments
      */
