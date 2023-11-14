@@ -26,9 +26,9 @@ public class MysqlConnector {
         try{
             Class.forName(drive);
             SQLConexion = DriverManager.getConnection(databaseURL, Usuario,Pass);
-            System.out.println("si esta conectado care monda");
+            System.out.println("Conexion ON");
         }catch(Exception e){
-            System.out.println("no esta conectado hpta cachaco care monda");
+            System.out.println("Conexion OFF");
             sqtf = 1;
         }
     }

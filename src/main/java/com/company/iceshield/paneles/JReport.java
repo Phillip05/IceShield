@@ -28,6 +28,11 @@ public class JReport extends javax.swing.JPanel {
     public JReport() {
         initComponents();
         setSize(1310, 596);
+        try {
+            obtenerConexion();
+        } catch (SQLException ex) {
+            Logger.getLogger(JReport.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
 
     /**
@@ -145,60 +150,8 @@ public class JReport extends javax.swing.JPanel {
     }// </editor-fold>//GEN-END:initComponents
 
     private void txt_buscarMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_txt_buscarMouseClicked
-// Obtener el ID desde el campo de texto
-        int id = Integer.parseInt(txt_input_codigo.getText());
+        Connection connection = null;
 
-// Consulta SQL parametrizada para buscar en la tabla 'ventas' por ID
-        String query = "SELECT * FROM ventas WHERE id = ?";
-
-        try (Connection connection = myconnector.getConexionDB(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
-
-            // Establecer el parámetro en la consulta
-            preparedStatement.setInt(1, id);
-
-            // Ejecutar la consulta y procesar los resultados
-            try (ResultSet rs = preparedStatement.executeQuery()) {
-                // Verificar si hay resultados
-                if (rs.next()) {
-                    // Obtener la cadena de productos desde la columna 'productos_venta'
-                    String txreport = rs.getString("productos_venta");
-
-                    // Dividir la cadena en elementos individuales
-                    String[] productosArray = txreport.split(" ");
-
-                    // Limpiar el modelo antes de agregar nuevos elementos
-                    DefaultListModel<String> listModel = new DefaultListModel<>();
-
-                    // Agregar cada producto al modelo de lista
-                    for (String producto : productosArray) {
-                        listModel.addElement(producto);
-                    }
-
-                    // Asignar el modelo al JList
-                    txt_input_report.setModel(listModel);
-
-                    // Otros pasos necesarios según tu lógica
-                    // ...
-                    System.out.println("Resultados encontrados para el ID: " + id);
-                } else {
-                    // Manejar el caso en que no se encontraron resultados para el ID dado
-                    System.out.println("No se encontraron resultados para el ID: " + id);
-                }
-            }
-
-        } catch (NumberFormatException ex) {
-            // Manejar la excepción si el valor ingresado no es un número válido
-            System.err.println("Error: El valor ingresado no es un número válido.");
-        } catch (SQLException ex) {
-            Logger.getLogger(JReport.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (Exception ex) {
-            // Manejar otras excepciones generales
-            ex.printStackTrace();
-        }
-
-    }//GEN-LAST:event_txt_buscarMouseClicked
-
-    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
         try {
             // Obtener el ID desde el campo de texto
             int id = Integer.parseInt(txt_input_codigo.getText());
@@ -207,8 +160,74 @@ public class JReport extends javax.swing.JPanel {
             String query = "SELECT * FROM ventas WHERE id = ?";
 
             // Intentar establecer la conexión y ejecutar la consulta
-            try (Connection connection = myconnector.getConexionDB(); PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+            connection = obtenerConexion();
+            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
+                // Establecer el parámetro en la consulta
+                preparedStatement.setInt(1, id);
 
+                // Ejecutar la consulta y procesar los resultados
+                try (ResultSet rs = preparedStatement.executeQuery()) {
+                    // Verificar si hay resultados
+                    if (rs.next()) {
+                        // Obtener la cadena de productos desde la columna 'productos_venta'
+                        String txreport = rs.getString("productos_venta");
+
+                        // Dividir la cadena en elementos individuales
+                        String[] productosArray = txreport.split(" ");
+
+                        // Limpiar el modelo antes de agregar nuevos elementos
+                        DefaultListModel<String> listModel = new DefaultListModel<>();
+
+                        // Agregar cada producto al modelo de lista
+                        for (String producto : productosArray) {
+                            listModel.addElement(producto);
+                        }
+
+                        // Asignar el modelo al JList
+                        txt_input_report.setModel(listModel);
+
+                        // Otros pasos necesarios según tu lógica
+                        // ...
+                        System.out.println("Resultados encontrados para el ID: " + id);
+                    } else {
+                        // Manejar el caso en que no se encontraron resultados para el ID dado
+                        System.out.println("No se encontraron resultados para el ID: " + id);
+                    }
+                }
+            }
+        } catch (NumberFormatException ex) {
+            // Manejar la excepción si el valor ingresado no es un número válido
+            System.err.println("Error: El valor ingresado no es un número válido.");
+        } catch (SQLException ex) {
+            Logger.getLogger(JReport.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (Exception ex) {
+            // Manejar otras excepciones generales
+            ex.printStackTrace();
+        } finally {
+            // Cerrar la conexión manualmente fuera del bloque try-with-resources
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
+        }
+    }//GEN-LAST:event_txt_buscarMouseClicked
+
+    private void jLabel1MouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jLabel1MouseClicked
+        Connection connection = null;
+
+        try {
+            // Obtener el ID desde el campo de texto
+            int id = Integer.parseInt(txt_input_codigo.getText());
+
+            // Consulta SQL parametrizada para buscar en la tabla 'ventas' por ID
+            String query = "SELECT * FROM ventas WHERE id = ?";
+
+            // Intentar establecer la conexión y ejecutar la consulta
+            connection = obtenerConexion();
+            try (PreparedStatement preparedStatement = connection.prepareStatement(query)) {
                 // Establecer el parámetro en la consulta
                 preparedStatement.setInt(1, id);
 
@@ -220,9 +239,8 @@ public class JReport extends javax.swing.JPanel {
                         String txreport = rs.getString("productos_venta");
                         int valortotal = rs.getInt("valortotal");
 
-      
                         // Generar el contenido para el PDF
-                        String contenidoPDF = "Producto comprado: Producto1\nValor Total: $"+valortotal+"\n"+txreport;
+                        String contenidoPDF = "Producto comprado: Producto1\nValor Total: $" + valortotal + "\n" + txreport;
 
                         // Generar el nombre del archivo PDF
                         String nombreArchivoPDF = "Reporte_ID_" + id + ".pdf";
@@ -237,7 +255,6 @@ public class JReport extends javax.swing.JPanel {
                     }
                 }
             }
-
         } catch (NumberFormatException ex) {
             // Manejar la excepción si el valor ingresado no es un número válido
             System.err.println("Error: El valor ingresado no es un número válido.");
@@ -246,6 +263,15 @@ public class JReport extends javax.swing.JPanel {
         } catch (Exception ex) {
             // Manejar otras excepciones generales
             ex.printStackTrace();
+        } finally {
+            // Cerrar la conexión manualmente fuera del bloque try-with-resources
+            if (connection != null) {
+                try {
+                    connection.close();
+                } catch (SQLException e) {
+                    e.printStackTrace();
+                }
+            }
         }
 
 
@@ -266,6 +292,20 @@ public class JReport extends javax.swing.JPanel {
             document.close();
         }
     }
+
+    private Connection obtenerConexion() throws SQLException {
+        Connection connection = myconnector.getConexionDB();
+
+        // Verificar si la conexión está cerrada y reconectar si es necesario
+        if (connection.isClosed()) {
+            // Volver a intentar obtener una nueva conexión
+            connection = myconnector.getConexionDB();
+        }
+
+        return connection;
+    }
+
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private com.company.iceshield.others.JPanelRound btn_buscar;
     private javax.swing.JLabel jLabel1;
